@@ -1,0 +1,25 @@
+FROM golang:1.20-alpine AS build-env
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.cn
+
+WORKDIR /app
+RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
+COPY . .
+RUN go mod tidy & go mod download
+
+WORKDIR /app/server
+RUN go build -o trade-server .
+
+FROM scratch
+
+WORKDIR /app
+COPY --from=build-env /app/server/trade-server .
+
+EXPOSE 5432
+
+ENTRYPOINT ["/app/trade-server"]

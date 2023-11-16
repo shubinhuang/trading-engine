@@ -1,0 +1,8 @@
+{
+    "symbol": "s1",
+    "userId":"{{.WorkerID}}",
+    "orderId":"{{.RequestNumber}}",
+    "direction":"buy",
+    "price": "{{randomInt 100 200}}",
+    "quantity":"{{randomInt 5 20}}"
+}

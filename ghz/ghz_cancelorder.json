@@ -1,0 +1,5 @@
+{
+    "symbol": "s1",
+    "orderId":"{{.RequestNumber}}",
+    "direction":"buy"
+}

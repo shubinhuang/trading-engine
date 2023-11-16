@@ -1,0 +1,32 @@
+FROM golang:1.20-alpine AS build-env
+
+ENV GO111MODULE=on \
+    CGO_ENABLED=0 \
+    GOOS=linux \
+    GOARCH=amd64 \
+    GOPROXY=https://goproxy.cn
+
+WORKDIR /app
+RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
+COPY go.mod /app
+COPY go.sum /app
+COPY proxy/ /app/proxy
+COPY consul/  /app/consul
+
+RUN go mod tidy & go mod download
+
+WORKDIR /app/proxy
+RUN go build -o proxy .
+
+WORKDIR /app
+Run cp /app/proxy/proxy /app/p
+
+# FROM scratch
+
+# WORKDIR /app
+# COPY --from=build-env /app/proxy/proxy .
+
+EXPOSE 6543
+
+ENTRYPOINT ["/app/p"]

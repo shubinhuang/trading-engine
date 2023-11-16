@@ -1,0 +1,9 @@
+*.html
+*.log
+*.out
+ghz/report/
+ghz/ghz
+server/server
+client/client
+proxy/proxy
+trading-engine

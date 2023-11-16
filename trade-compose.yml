@@ -1,0 +1,42 @@
+version: '2'
+services:
+  trade0:
+    image: "trade:v3"
+    environment:
+      SERVICE_NAME: "trade0"
+    volumes:
+      - /home/hsb/workspace/trading-engine/config:/config
+    ports:
+      - 5432
+    expose:
+      - 5432
+    command: -servicename=trade0
+    entrypoint: /app/trade-server
+
+  trade1:
+    image: "trade:v3"
+    environment:
+      SERVICE_NAME: "trade1"
+    volumes:
+      - /home/hsb/workspace/trading-engine/config:/config
+    ports:
+      - 5432
+    expose:
+      - 5432
+    command: -servicename=trade1
+    entrypoint: /app/trade-server
+
+  proxy:
+    image: "proxy:v1"
+    environment:
+      SERVICE_NAME: "proxy"
+    volumes:
+      - /home/hsb/workspace/trading-engine/config:/config
+    ports:
+      - 6543
+    expose:
+      - 6543
+    entrypoint: /app/p
+    depends_on:
+      - trade0
+      - trade1

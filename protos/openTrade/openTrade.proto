@@ -1,0 +1,23 @@
+// protoc --go_out=. --go_opt=paths=source_relative  --go-grpc_out=. --go-grpc_opt=paths=source_relative ./openTrade.proto 
+
+syntax = "proto3";
+option go_package = "trading-engine/protos/openTrade";
+package openTrade;
+
+
+// 消息定义
+message OpenRequest {
+   string symbol = 1;   // 标的
+   string price = 2;    // 开盘价
+}
+
+message OpenReply {
+   int32 code = 1; // 状态码
+   string msg = 2;  // 信息
+}
+
+// 服务定义
+service OpenService{
+    // 包含一个开启指定标的撮合的方法
+    rpc OpenTrade(OpenRequest) returns (OpenReply) {}
+}

@@ -1,0 +1,18 @@
+[
+    {
+        "symbol": "s0",
+        "userId": "buy_{{.WorkerID}}",
+        "orderId": "buy_{{newUUID}}",
+        "direction": "buy",
+        "price": "{{randomInt 100 200}}",
+        "quantity": "{{randomInt 5 20}}"
+    },
+    {
+        "symbol": "s0",
+        "userId": "sell_{{.WorkerID}}",
+        "orderId": "sell_{{newUUID}}",
+        "direction": "sell",
+        "price": "{{randomInt 100 200}}",
+        "quantity": "{{randomInt 5 20}}"
+    }
+]

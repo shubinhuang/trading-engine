@@ -1,0 +1,40 @@
+// protoc --go_out=. --go_opt=paths=source_relative  --go-grpc_out=. --go-grpc_opt=paths=source_relative ./processOrder.proto 
+
+syntax = "proto3";
+option go_package = "trading-engine/protos/processOrder";
+package processOrder;
+
+
+// 消息定义
+message CreateRequest {
+   string symbol = 1;   // 标的
+   string userId = 2;   // 用户ID
+   string orderId = 3;  // 订单ID
+   string direction = 4; // buy or sell
+   string price = 5; // 价格
+   string quantity = 6; // 订单数量
+}
+
+message CreateReply {
+   int32 code = 1; // 状态码
+   string msg = 2;  // 信息
+}
+
+message CancelRequest {
+   string symbol = 1;   // 标的
+   string orderId = 2;  // 订单ID
+   string direction=3;  // buy or sell
+ }
+ 
+ message CancelReply {
+    int32 code = 1; // 状态码
+    string msg = 2;  // 信息
+ }
+
+// 服务定义
+service OrderService{
+    // 下单方法
+    rpc CreateOrder(CreateRequest) returns (CreateReply) {}
+    // 撤单方法
+    rpc CancelOrder(CancelRequest) returns (CancelReply) {}
+}

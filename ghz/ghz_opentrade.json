@@ -1,0 +1,4 @@
+{
+    "symbol": "{{.RequestNumber}}",
+    "price": "{{randomInt 100 200}}"
+}
